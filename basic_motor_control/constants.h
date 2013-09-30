@@ -1,44 +1,24 @@
-
 /****************************************************
-* Basic Quadrotor Motor Control
+* Constant declarations
 * Hayk Martirosyan
 ****************************************************/
 
-
-#include "Timer.h"
-#include "Servo.h"
-
-#include "constants.h"
-#include "command_parser.h"
-#include "motor_driver.h"
+#ifndef CONSTANTS_H
+#define	CONSTANTS_H
 
 // --------------------------------------------------
-// CONSTANTS
+// PUBLIC CONSTANTS
+// --------------------------------------------------
+
+#define TRUE 1
+#define FALSE 0
+
+// --------------------------------------------------
+// PUBLIC VARIABLES
 // --------------------------------------------------
 
 // --------------------------------------------------
-// VARIABLES
+// PUBLIC METHODS
 // --------------------------------------------------
 
-Timer t;
-
-// --------------------------------------------------
-// METHODS
-// --------------------------------------------------
-
-void setup() 
-{ 
-  
-  Serial.begin(9600);
-  
-  CMD_init(&t);
-  MDR_init(&t);
-  
-  delay(2000);
-}
-
-void loop() {
-  
-  t.update();
-} 
-
+#endif	/* CONSTANTS_H */
