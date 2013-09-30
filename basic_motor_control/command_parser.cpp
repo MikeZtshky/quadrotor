@@ -90,6 +90,10 @@ void CMD_check_command(String pCommand, void (*callback)(void)) {
 
 void CMD_test() {
   Serial.println("Test command received!");
+  
+  // SOFTWARE RESET
+  void(* resetFunc) (void) = 0;
+  resetFunc();
 }
 
 

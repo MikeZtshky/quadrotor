@@ -35,6 +35,9 @@ void setup()
   MDR_init(&t);
   
   delay(2000);
+  
+  Serial.println("");
+  Serial.println("Quadrotor initialized!");
 }
 
 void loop() {
