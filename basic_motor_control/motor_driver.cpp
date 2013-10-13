@@ -20,7 +20,7 @@
 // One servo object per motor stack
 static Servo motors[MDR_NUM_MOTORS];
 
-static int motor_pins[] = {11, 10, 9, 8};
+static int motor_pins[] = {11, 9, 6, 3};
 
 static double desired_speed[MDR_NUM_MOTORS];
 
@@ -36,9 +36,9 @@ static void MDR_drive(int motor) {
     double current_speed = MDR_get_speed(motor);
     
     if (current_speed < desired_speed[motor])
-      current_speed += .001;
+      current_speed += .01;
     else if (current_speed > desired_speed[motor])
-      current_speed -= .001;
+      current_speed -= .01;
     
     MDR_set_speed(motor, current_speed);
 }
