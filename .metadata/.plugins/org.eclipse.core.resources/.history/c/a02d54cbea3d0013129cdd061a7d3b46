@@ -1,0 +1,56 @@
+package com.quadrotor.flyingdiamond;
+
+import java.util.UUID;
+
+import com.example.bluetooth.MainActivity.ConnectThread;
+import com.example.bluetooth.MainActivity.ConnectedThread;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.util.Log;
+import android.view.Menu;
+import android.widget.Toast;
+
+public class BluetoothTest extends Activity {
+
+	private BluetoothAdapter bluetooth = null;
+	private ConnectThread mConnectThread;
+	private ConnectedThread mConnectedThread;
+    public static final int MESSAGE_READ = 1;
+    public static final int MESSAGE_DEVICE_NAME = 2;
+    public static final int MESSAGE_TOAST = 3;
+    public static final String TOAST = "toast";
+	private static UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+	private static final String TAG = "MainActivity";
+	private String connectedDeviceName = null;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bluetooth_test);
+        
+		bluetooth = BluetoothAdapter.getDefaultAdapter();
+		
+		if (bluetooth == null) {
+			Toast.makeText(this, "No Bluetooth adapter detected on device.", Toast.LENGTH_LONG).show();
+			finish();
+			return;
+		}
+		
+		BluetoothDevice device = bluetooth.getRemoteDevice("00:06:66:4E:48:CF");
+		Log.v(TAG, "connecting to 00:06:66:4E:48:CF");
+		mConnectThread = new ConnectThread(device);
+		mConnectThread.start();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.bluetooth_test, menu);
+        return true;
+    }
+    
+}
