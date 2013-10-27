@@ -10,6 +10,7 @@
 #include "Arduino.h"
 #include "Timer.h"
 #include "constants.h"
+#include "bluetooth.h"
 
 // --------------------------------------------------
 // PUBLIC CONSTANTS
@@ -28,9 +29,10 @@
 
 void CMD_check_command(String pCommand, void (*callback)(void));
 void CMD_test();
+void CMD_command_received(String command);
+void CMD_command_received(String command, int arg);
 
 void CMD_init(Timer* t);
 void CMD_commands();
-
 #endif	/* COMMAND_PARSER_H */
 

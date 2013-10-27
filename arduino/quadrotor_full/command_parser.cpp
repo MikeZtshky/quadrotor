@@ -5,98 +5,103 @@
 ****************************************************/
 
 #include "command_parser.h"
+#include "motor_driver.h"
+#include "accelerometer.h"
+#include "usb_serial.h"
+
+// --------------------------------------------------
+// PRIVATE CONSTANTS
+// --------------------------------------------------
+
+#define NO_ARGUMENT -3333
 
 // --------------------------------------------------
 // PRIVATE VARIABLES
 // --------------------------------------------------
 
-static String serial_received = String();
+String last_command = String();
+int last_arg = -1;
 
 // --------------------------------------------------
 // PRIVATE METHODS
 // --------------------------------------------------
 
-static int CMD_new_serial_data() {
-  if (serial_received.length() > 0)
+static int CMD_check_command_string(String* pStr) {
+  
+  String command = *pStr;
+  
+  if (command == last_command)
     return TRUE;
   return FALSE;
 }
 
-static void CMD_read_serial() {
-  
-  serial_received = String();
-  
-  if (Serial.available()) {
-    
-    while(Serial.available())
-      serial_received += (char)Serial.read();
-    
-    Serial.print("Received: ");
-    Serial.println(serial_received);
-  }
-}
-
-static int CMD_check_command_string(String* pStr) {
-  
-  // No new data
-  if (!CMD_new_serial_data())
-    return FALSE;
-  
-  String command = *pStr;
-  
-  // Serial received is too short to be this command
-  if (serial_received.length() < command.length())
-    return FALSE;
-  
-  // Make sure all the characters match up
-  int i;
-  for(i = 0; i < command.length(); i++) {
-     if(serial_received[i] != command[i])
-         return FALSE;
-  }
-  
-  // Make sure if there are more characters, that the next one is a space
-  if (serial_received.length() > command.length())
-    if (serial_received[command.length()] != CMD_DELIMITER)
-      return FALSE;
-  
-  // Matched up
-  return TRUE;
-}
-
 static void CMD_update() {
   
-  // Update serial_received
-  CMD_read_serial();
 }
 
 // --------------------------------------------------
 // PUBLIC METHODS
 // --------------------------------------------------
 
-void CMD_init(Timer* t) {
-  
-  t->every(CMD_UPDATE_RATE, CMD_update);
-}
-
 void CMD_check_command(String pCommand, void (*callback)(void)) {
   
+  if(last_arg != NO_ARGUMENT) {
+    //Serial.println("Ignoring command, argument present!");
+    return;
+  }
   
   if(CMD_check_command_string(&pCommand))
     callback();
-   
+}
+
+void CMD_check_command(String pCommand, void (*callback)(int)) {
+  
+  if(last_arg == NO_ARGUMENT) {
+    return;
+  }
+  
+  if(CMD_check_command_string(&pCommand))
+    callback(last_arg);
+}
+
+void check_all_commands() {
+  BLU_commands();
+  SER_commands();
+  CMD_commands();
+  MDR_commands();
+  ACC_commands();
+}
+
+void CMD_command_received(String command) {
+  Serial.println("CMD command received: " + command);
+  last_command = command;
+  last_arg = NO_ARGUMENT;
+  check_all_commands();
+}
+
+void CMD_command_received(String command, int arg) {
+  Serial.println("CMD command received: " + command + ", arg: " + String(arg));
+  last_command = command;
+  last_arg = arg;
+  check_all_commands();
+}
+
+void CMD_init(Timer* t) {
+
+  t->every(CMD_UPDATE_RATE, CMD_update);
 }
 
 void CMD_test() {
   Serial.println("Test command received!");
-  
-  // SOFTWARE RESET
-  void(* resetFunc) (void) = 0;
-  resetFunc();
+}
+
+void CMD_test2(int arg) {
+  Serial.print("Test command received with arg: ");
+  Serial.println(arg);
 }
 
 void CMD_commands() {
-  
+  CMD_check_command("CMD_test", CMD_test);
+  CMD_check_command("CMD_test2", CMD_test2);
 }
-
 

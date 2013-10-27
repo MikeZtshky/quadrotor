@@ -48,6 +48,18 @@ void ACC_print() {
   Serial.println("");
 }
 
+void ACC_send_X() {
+  BLU_send_command("ACC_X", ACC_get_X());
+}
+
+void ACC_send_Y() {
+  BLU_send_command("ACC_Y", ACC_get_Y());
+}
+
+void ACC_send_Z() {
+  BLU_send_command("ACC_Z", ACC_get_Z());
+}
+
 void ACC_update() {
   x_accel = analogRead(X_ACCEL_PIN);
   y_accel = analogRead(Y_ACCEL_PIN);
@@ -65,5 +77,9 @@ void ACC_commands() {
   
   // Commands
   CMD_check_command(String("ACC_print"), ACC_print);
+  
+  CMD_check_command(String("ACC_send_X"), ACC_send_X);
+  CMD_check_command(String("ACC_send_Y"), ACC_send_Y);
+  CMD_check_command(String("ACC_send_Z"), ACC_send_Z);
 }
 

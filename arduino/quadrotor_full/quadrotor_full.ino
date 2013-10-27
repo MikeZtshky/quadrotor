@@ -10,6 +10,8 @@
 #include "command_parser.h"
 #include "motor_driver.h"
 #include "accelerometer.h"
+#include "bluetooth.h"
+#include "usb_serial.h"
 
 // --------------------------------------------------
 // CONSTANTS
@@ -25,16 +27,10 @@ Timer t;
 // METHODS
 // --------------------------------------------------
 
-void parse_commands() {
-  CMD_commands();
-  MDR_commands();
-  ACC_commands();
-}
-
 void setup() { 
   
-  Serial.begin(9600);
-  
+  BLU_init(&t);
+  SER_init(&t);
   CMD_init(&t);
   MDR_init(&t);
   ACC_init(&t);
@@ -43,8 +39,6 @@ void setup() {
   
   Serial.println("");
   Serial.println("Quadrotor initialized!");
-  
-  t.every(CMD_UPDATE_RATE, parse_commands);
 }
 
 void loop() {

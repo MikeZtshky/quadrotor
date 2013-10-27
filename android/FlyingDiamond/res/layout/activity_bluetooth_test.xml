@@ -24,4 +24,36 @@
         android:text="@string/last_received"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <EditText
+        android:id="@+id/sendTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/received_text"
+        android:layout_below="@+id/received_text"
+        android:layout_marginTop="18dp"
+        android:hint="@string/sendTextHint"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sendTextField"
+        android:layout_toRightOf="@+id/sendTextField"
+        android:onClick="sendCommandButton"
+        android:text="@string/sendButton" />
+
+    <TextView
+        android:id="@+id/accelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sendTextField"
+        android:layout_below="@+id/sendButton"
+        android:layout_marginTop="34dp"
+        android:text="X accel: 0, Y accel: 0, Z-accel: 0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

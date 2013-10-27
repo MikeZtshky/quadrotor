@@ -6,5 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="received_title">Last received message:</string>
     <string name="last_received">Nothing received yet :(</string>
+    <string name="sendButton">Send!</string>
+    <string name="sendTextHint">Enter command..</string>
 
 </resources>

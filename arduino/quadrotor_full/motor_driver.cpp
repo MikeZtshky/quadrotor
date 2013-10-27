@@ -170,7 +170,7 @@ void MDR_init(Timer* t) {
   t->every(MDR_UPDATE_RATE, MDR_update);
   
   // Position printing loop
-  t->every(MDR_PRINT_LOOP_RATE, MDR_print_speeds);
+  //t->every(MDR_PRINT_LOOP_RATE, MDR_print_speeds);
 }
 
 void MDR_commands() {
