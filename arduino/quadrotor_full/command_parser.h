@@ -28,6 +28,7 @@
 // --------------------------------------------------
 
 void CMD_check_command(String pCommand, void (*callback)(void));
+void CMD_check_command(String pCommand, void (*callback)(int));
 void CMD_test();
 void CMD_command_received(String command);
 void CMD_command_received(String command, int arg);

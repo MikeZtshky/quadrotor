@@ -62,7 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/sendButton"
-        android:layout_marginTop="44dp"
-        android:progress="0" />
+        android:layout_marginTop="44dp" />
 
 </RelativeLayout>

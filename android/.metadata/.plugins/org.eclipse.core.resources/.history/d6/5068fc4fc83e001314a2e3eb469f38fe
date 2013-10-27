@@ -51,18 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/sendTextField"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="18dp"
+        android:layout_below="@+id/sendButton"
+        android:layout_marginTop="34dp"
         android:text="X accel: 0, Y accel: 0, Z-accel: 0"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <SeekBar
-        android:id="@+id/seekBar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sendButton"
-        android:layout_marginTop="44dp"
-        android:progress="0" />
 
 </RelativeLayout>

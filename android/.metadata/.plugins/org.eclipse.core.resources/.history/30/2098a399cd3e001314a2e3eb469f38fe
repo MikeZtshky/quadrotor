@@ -37,7 +37,7 @@ public class BluetoothTest extends Activity {
 	private String connectedDeviceName = null;
 	private String QUADROTOR_ADDRESS = "00:06:66:4E:3E:CE";
 	
-	private char END_COMMAND = '\r';
+	private char END_COMMAND = '#';
 	private char DELIMITER = ' ';
 	
 	private int x_accel = 2;

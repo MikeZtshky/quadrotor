@@ -13,6 +13,11 @@
 #define MDR_ZERO 1000
 #define MDR_FULL 2000
 
+#define NE_MOTOR 0
+#define SE_MOTOR 1
+#define SW_MOTOR 2
+#define NW_MOTOR 3
+
 // --------------------------------------------------
 // PRIVATE VARIABLES
 // --------------------------------------------------
@@ -118,6 +123,42 @@ void MDR_set_desired_speed_all(double throttle) {
     MDR_set_desired_speed(i, throttle);
 }
 
+void MDR_set_NE(int vel) {
+  if((vel < 0) || (vel > 255)) {
+    Serial.println("Invalid speed value!");
+    return;
+  }
+  double throttle = (double)vel/255.0;
+  MDR_set_desired_speed(NE_MOTOR, throttle);
+}
+
+void MDR_set_SE(int vel) {
+  if((vel < 0) || (vel > 255)) {
+    Serial.println("Invalid speed value!");
+    return;
+  }
+  double throttle = (double)vel/255.0;
+  MDR_set_desired_speed(SE_MOTOR, throttle);
+}
+
+void MDR_set_SW(int vel) {
+  if((vel < 0) || (vel > 255)) {
+    Serial.println("Invalid speed value!");
+    return;
+  }
+  double throttle = (double)vel/255.0;
+  MDR_set_desired_speed(SW_MOTOR, throttle);
+}
+
+void MDR_set_NW(int vel) {
+  if((vel < 0) || (vel > 255)) {
+    Serial.println("Invalid speed value!");
+    return;
+  }
+  double throttle = (double)vel/255.0;
+  MDR_set_desired_speed(NW_MOTOR, throttle);
+}
+
 void MDR_0() {
   MDR_set_desired_speed_all(0.0);
 }
@@ -176,16 +217,10 @@ void MDR_init(Timer* t) {
 void MDR_commands() {
   
   // Commands
-  CMD_check_command(String("MDR_STOP"), MDR_stop_all);
-  CMD_check_command(String("MDR_0"), MDR_0);
-  CMD_check_command(String("MDR_1"), MDR_1);
-  CMD_check_command(String("MDR_2"), MDR_2);
-  CMD_check_command(String("MDR_3"), MDR_3);
-  CMD_check_command(String("MDR_4"), MDR_4);
-  CMD_check_command(String("MDR_5"), MDR_5);
-  CMD_check_command(String("MDR_6"), MDR_6);
-  CMD_check_command(String("MDR_7"), MDR_7);
-  CMD_check_command(String("MDR_8"), MDR_8);
-  CMD_check_command(String("MDR_9"), MDR_9);
+  CMD_check_command(String("STOP"), MDR_stop_all);
+  CMD_check_command(String("NE"), MDR_set_NE);
+  CMD_check_command(String("SE"), MDR_set_SE);
+  CMD_check_command(String("SW"), MDR_set_SW);
+  CMD_check_command(String("NW"), MDR_set_NW);
 }
 

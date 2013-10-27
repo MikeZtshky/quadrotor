@@ -75,6 +75,7 @@ void check_all_commands() {
 void CMD_command_received(String command) {
   Serial.println("CMD command received: " + command);
   last_command = command;
+  last_command.toUpperCase();
   last_arg = NO_ARGUMENT;
   check_all_commands();
 }
@@ -82,6 +83,7 @@ void CMD_command_received(String command) {
 void CMD_command_received(String command, int arg) {
   Serial.println("CMD command received: " + command + ", arg: " + String(arg));
   last_command = command;
+  last_command.toUpperCase();
   last_arg = arg;
   check_all_commands();
 }

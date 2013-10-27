@@ -13,7 +13,7 @@
 
 #define USB_SERIAL_BAUD 9600
 
-#define END_COMMAND '#'
+#define END_COMMAND '\r'
 #define DELIMITER ' '
 
 #define READ_COUNT 5
