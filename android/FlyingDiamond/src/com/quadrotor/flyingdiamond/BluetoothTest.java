@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,7 @@ public class BluetoothTest extends Activity {
     public static final int MESSAGE_TOAST = 3;
     public static final String TOAST = "toast";
 	private static UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-	private static final String TAG = "BluetoothTest";
+	private static final String TAG = "FlyingDiamond";
 	private String connectedDeviceName = null;
 	private String QUADROTOR_ADDRESS = "00:06:66:4E:3E:CE";
 	
@@ -44,8 +46,14 @@ public class BluetoothTest extends Activity {
 	private int y_accel = 3;
 	private int z_accel = 4;
 	
+	private SeekBar strengthBar;
+	
 	// Holds the received information
 	private String rx_buffer = "";
+	
+	// Turn amounts (-255 to 255)
+	private int N_turn = 0;
+	private int E_turn = 0;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +68,37 @@ public class BluetoothTest extends Activity {
 			return;
 		}
 		
+		initialize_ui_elements();
+		
 		BluetoothDevice device = bluetooth.getRemoteDevice(QUADROTOR_ADDRESS);
 		Log.v(TAG, "connecting to " + QUADROTOR_ADDRESS);
 		mConnectThread = new ConnectThread(device);
 		mConnectThread.start();
     }
+    
+    private void initialize_ui_elements() {
+    	strengthBar = (SeekBar) findViewById(R.id.strengthBar);
+    	strengthBar.setMax(255);
+	    strengthBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {       
 
+		    @Override       
+		    public void onStopTrackingTouch(SeekBar seekBar) {
+		    }       
+
+		    @Override       
+		    public void onStartTrackingTouch(SeekBar seekBar) {     
+		        // TODO Auto-generated method stub      
+		    }       
+
+		    @Override       
+		    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {     
+		        // TODO Auto-generated method stub
+		    	int strength = seekBar.getProgress();
+		        Log.v(TAG, "Strength bar updated: " + strength);
+		        send_command("STRENGTH " + strength);
+		    }       
+		 });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,6 +263,47 @@ public class BluetoothTest extends Activity {
 			} catch (IOException e) {
 			}
 		}
+	}
+	
+	public void goNorthButton(View v) {
+		N_turn += 10;
+		send_command("N_TURN " + N_turn);
+	}
+	
+	public void goSouthButton(View v) {
+		N_turn -= 10;
+		send_command("N_TURN " + N_turn);
+	}
+	
+	public void goEastButton(View v) {
+		E_turn += 10;
+		send_command("E_TURN " + E_turn);
+	}
+	
+	public void goWestButton(View v) {
+		E_turn -= 10;
+		send_command("E_TURN " + E_turn);
+	}
+	
+	public void noTurnButton(View v) {
+		N_turn = 0;
+		E_turn = 0;
+		send_command("N_TURN " + N_turn);
+		send_command("E_TURN " + E_turn);
+	}
+	
+	public void stop_button(View v) {
+		send_command("STOP");
+		send_command("STOP");
+	}
+	
+	public void fly_button(View v) {
+		SeekBar seekBar = (SeekBar) findViewById(R.id.strengthBar);
+    	int strength = seekBar.getProgress();
+        Log.v(TAG, "Strength bar updated: " + strength);
+        send_command("STRENGTH " + strength);
+		
+		send_command("FLY");
 	}
 	
 	private void send_command(String command) {

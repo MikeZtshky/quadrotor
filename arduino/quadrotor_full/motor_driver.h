@@ -18,10 +18,15 @@
 // PUBLIC CONSTANTS
 // --------------------------------------------------
 
-#define MDR_UPDATE_RATE 2
-#define MDR_PRINT_LOOP_RATE 1000
+#define MDR_UPDATE_RATE 5
+#define MDR_PRINT_LOOP_RATE 500
 
 #define MDR_NUM_MOTORS 4
+
+#define NE_MOTOR 0
+#define SE_MOTOR 1
+#define SW_MOTOR 2
+#define NW_MOTOR 3
 
 // --------------------------------------------------
 // PUBLIC VARIABLES

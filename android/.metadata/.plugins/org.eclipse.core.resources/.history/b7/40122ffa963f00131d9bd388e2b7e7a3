@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".BluetoothTest" >
+
+    <TextView
+        android:id="@+id/received_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/received_title" />
+
+    <TextView
+        android:id="@+id/accelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sendTextField"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:text="X accel: 0, Y accel: 0, Z-accel: 0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <SeekBar
+        android:id="@+id/strengthBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sendButton"
+        android:layout_marginTop="44dp"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/strengthBar"
+        android:layout_below="@+id/sendButton"
+        android:layout_marginTop="22dp"
+        android:text="Strength:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/received_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/received_title"
+        android:layout_below="@+id/received_title"
+        android:layout_marginTop="10dp"
+        android:text="@string/last_received"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/sendTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/received_text"
+        android:layout_below="@+id/received_text"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/sendTextHint" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/sendTextField"
+        android:layout_alignTop="@+id/sendTextField"
+        android:layout_marginLeft="13dp"
+        android:layout_toRightOf="@+id/sendTextField"
+        android:onClick="sendCommandButton"
+        android:text="@string/sendButton" />
+
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/accelText"
+        android:layout_alignRight="@+id/sendTextField"
+        android:layout_marginBottom="66dp"
+        android:text="STOP" />
+
+</RelativeLayout>

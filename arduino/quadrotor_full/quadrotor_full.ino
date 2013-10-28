@@ -12,6 +12,7 @@
 #include "accelerometer.h"
 #include "bluetooth.h"
 #include "usb_serial.h"
+#include "fly.h"
 
 // --------------------------------------------------
 // CONSTANTS
@@ -22,6 +23,7 @@
 // --------------------------------------------------
 
 Timer t;
+int i = 0;
 
 // --------------------------------------------------
 // METHODS
@@ -34,6 +36,7 @@ void setup() {
   CMD_init(&t);
   MDR_init(&t);
   ACC_init(&t);
+  FLY_init(&t);
   
   delay(1000);
   
@@ -44,5 +47,10 @@ void setup() {
 void loop() {
   
   t.update();
+  
+  ACC_update();
+  //if ((i % 100) == 0)
+  //  Serial.println(millis());
+  i++;
 } 
 

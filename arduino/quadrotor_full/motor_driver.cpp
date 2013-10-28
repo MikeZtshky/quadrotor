@@ -13,11 +13,6 @@
 #define MDR_ZERO 1000
 #define MDR_FULL 2000
 
-#define NE_MOTOR 0
-#define SE_MOTOR 1
-#define SW_MOTOR 2
-#define NW_MOTOR 3
-
 // --------------------------------------------------
 // PRIVATE VARIABLES
 // --------------------------------------------------
@@ -25,7 +20,7 @@
 // One servo object per motor stack
 static Servo motors[MDR_NUM_MOTORS];
 
-static int motor_pins[] = {11, 9, 6, 3};
+static int motor_pins[] = {11, 10, 3, 6};
 
 static double desired_speed[MDR_NUM_MOTORS];
 
@@ -82,6 +77,11 @@ double MDR_get_speed(int motor) {
 * Sets the desired motor speed using a number between 0 and 1.
 */
 void MDR_set_desired_speed(int motor, double throttle) {
+  if(throttle < 0.0)
+    throttle = 0;
+  if(throttle > 1.0)
+    throttle = 1.0;
+    
   desired_speed[motor] = throttle;
 }
 
@@ -159,6 +159,16 @@ void MDR_set_NW(int vel) {
   MDR_set_desired_speed(NW_MOTOR, throttle);
 }
 
+void MDR_set_all(int vel) {
+  if((vel < 0) || (vel > 255)) {
+    Serial.println("Invalid speed value!");
+    return;
+  }
+  double throttle = (double)vel/255.0;
+  for(int i = 0; i < MDR_NUM_MOTORS; i++)
+    MDR_set_desired_speed(i, throttle);
+}
+
 void MDR_0() {
   MDR_set_desired_speed_all(0.0);
 }
@@ -222,5 +232,6 @@ void MDR_commands() {
   CMD_check_command(String("SE"), MDR_set_SE);
   CMD_check_command(String("SW"), MDR_set_SW);
   CMD_check_command(String("NW"), MDR_set_NW);
+  CMD_check_command(String("ALL"), MDR_set_all);
 }
 

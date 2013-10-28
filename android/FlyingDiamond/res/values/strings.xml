@@ -8,5 +8,7 @@
     <string name="last_received">Nothing received yet :(</string>
     <string name="sendButton">Send!</string>
     <string name="sendTextHint">Enter command..</string>
+    <color name="stopButton">#FF0000</color>
+    <color name="flyButton">#00FF00</color>
 
 </resources>

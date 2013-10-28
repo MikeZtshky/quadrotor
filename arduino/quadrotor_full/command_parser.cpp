@@ -8,6 +8,7 @@
 #include "motor_driver.h"
 #include "accelerometer.h"
 #include "usb_serial.h"
+#include "fly.h"
 
 // --------------------------------------------------
 // PRIVATE CONSTANTS
@@ -70,6 +71,7 @@ void check_all_commands() {
   CMD_commands();
   MDR_commands();
   ACC_commands();
+  FLY_commands();
 }
 
 void CMD_command_received(String command) {

@@ -12,12 +12,15 @@
 
 #include "constants.h"
 #include "command_parser.h"
+#include "accelerometer.h"
+#include "motor_driver.h"
 
 // --------------------------------------------------
 // PUBLIC CONSTANTS
 // --------------------------------------------------
 
-#define FLY_UPDATE_RATE 5
+#define FLY_UPDATE_RATE 20
+#define FLY_PRINT_RATE 200
 
 // --------------------------------------------------
 // PUBLIC VARIABLES
